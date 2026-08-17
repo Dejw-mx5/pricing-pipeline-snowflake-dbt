@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: "Current product dimension (current version from the SCD2 snapshot)."
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+
+  - name: fct_competitor_price
+    description: "Incremental fact of competitor price observations."
+    columns:
+      - name: price_event_id
+        tests: [not_null, unique]
+      - name: product_id
+        tests:
+          - relationships:
+              to: ref('dim_product')
+              field: product_id
+
+  - name: fct_price_position
+    description: "Our cost vs competitor market, with a price-position index."
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: price_index
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0

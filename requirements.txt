@@ -1,0 +1,7 @@
+dbt-core>=1.9,<1.10
+dbt-snowflake>=1.9,<1.10
+snowflake-connector-python>=3.6
+Faker>=24.0
+sqlfluff>=3.0
+sqlfluff-templater-dbt>=3.0
+python-dotenv>=1.0

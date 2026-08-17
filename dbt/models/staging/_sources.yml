@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: raw
+    database: "{{ env_var('SNOWFLAKE_DATABASE', 'PRICING') }}"
+    schema: RAW
+    description: "Landing zone loaded by ingestion/generate_and_load.py"
+    tables:
+      - name: products
+        description: "Product master with current unit cost (full refresh each load)."
+        columns:
+          - name: product_id
+            tests: [not_null]
+      - name: competitor_prices
+        description: "Daily competitor price observations (append-only feed)."
+        loaded_at_field: loaded_at
+        freshness:
+          warn_after: {count: 48, period: hour}

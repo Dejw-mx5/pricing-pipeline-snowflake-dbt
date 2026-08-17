@@ -1,0 +1,5 @@
+# Extra Python deps for the Airflow image (e.g. Astronomer Runtime)
+dbt-core>=1.9,<1.10
+dbt-snowflake>=1.9,<1.10
+snowflake-connector-python>=3.6
+Faker>=24.0

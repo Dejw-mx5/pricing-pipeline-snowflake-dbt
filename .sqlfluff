@@ -1,0 +1,12 @@
+[sqlfluff]
+dialect = snowflake
+templater = jinja
+max_line_length = 120
+exclude_rules = L034, RF04
+
+[sqlfluff:indentation]
+indented_joins = false
+tab_space_size = 4
+
+[sqlfluff:rules:capitalisation.keywords]
+capitalisation_policy = lower

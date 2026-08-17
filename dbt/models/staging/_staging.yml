@@ -1,0 +1,31 @@
+version: 2
+
+models:
+  - name: stg_products
+    description: "Typed, renamed product master."
+    columns:
+      - name: product_id
+        tests: [not_null, unique]
+      - name: category
+        tests:
+          - accepted_values:
+              values: ["Connectors", "Sensors", "Cables", "Controllers", "Power"]
+      - name: unit_cost
+        tests:
+          - dbt_utils.accepted_range:
+              min_value: 0
+
+  - name: stg_competitor_prices
+    description: "Typed competitor price observations."
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_products')
+              field: product_id
+      - name: price
+        tests:
+          - not_null
+          - dbt_utils.accepted_range:
+              min_value: 0
